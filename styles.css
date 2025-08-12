@@ -52,6 +52,42 @@ body {
     color: #3498db;
 }
 
+/* 管理按钮样式 */
+.nav-admin {
+    display: flex;
+    align-items: center;
+}
+
+.admin-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    background: linear-gradient(135deg, #3498db, #2980b9);
+    color: white;
+    text-decoration: none;
+    border-radius: 25px;
+    font-weight: 500;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 10px rgba(52, 152, 219, 0.3);
+}
+
+.admin-btn:hover {
+    background: linear-gradient(135deg, #2980b9, #1f5f8b);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(52, 152, 219, 0.4);
+    color: white;
+}
+
+.admin-btn i {
+    font-size: 1rem;
+}
+
+.admin-btn span {
+    font-weight: 500;
+}
+
 .nav-menu {
     display: flex;
     list-style: none;
@@ -382,6 +418,20 @@ main {
         display: flex;
     }
 
+    .nav-admin {
+        order: -1;
+        margin-right: auto;
+    }
+
+    .admin-btn {
+        padding: 8px 12px;
+        font-size: 0.8rem;
+    }
+
+    .admin-btn span {
+        display: none;
+    }
+
     .nav-menu {
         position: fixed;
         left: -100%;
@@ -456,6 +506,11 @@ main {
 @media (max-width: 480px) {
     .nav-logo h1 {
         font-size: 1.4rem;
+    }
+
+    .admin-btn {
+        padding: 6px 10px;
+        font-size: 0.75rem;
     }
 
     .hero-section {
