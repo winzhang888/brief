@@ -2,7 +2,7 @@
 class LoginManager {
     constructor() {
         this.credentials = {
-            username: 'admin',
+            username: 'win.zhang',
             password: 'admin'
         };
         this.init();

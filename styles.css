@@ -41,6 +41,12 @@ body {
     height: 70px;
 }
 
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
 .nav-menu {
     display: flex;
     list-style: none;
@@ -421,6 +427,12 @@ main {
 @media (max-width: 768px) {
     .hamburger {
         display: flex;
+    }
+
+    .nav-right {
+        order: -1;
+        margin-right: auto;
+        gap: 1rem;
     }
 
     .nav-admin {
