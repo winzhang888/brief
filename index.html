@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的个人网站</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- 顶部导航栏 -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <h1>我的个人网站</h1>
+            </div>
+                         <ul class="nav-menu">
+                 <li><a href="#home">首页</a></li>
+                                 <li><a href="#about">关于我</a></li>
+             </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 主体部分 -->
+    <main>
+        <!-- 照片轮播 -->
+        <section id="home" class="hero-section">
+            <div class="carousel-container">
+                <div class="carousel">
+                    <div class="carousel-slide active">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&h=600&fit=crop" alt="个人照片1" class="carousel-image">
+                        <div class="carousel-caption">
+                            <h3>美丽的风景</h3>
+                            <p>拍摄于2024年春天，记录下这美好的时刻</p>
+                        </div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?w=800&h=600&fit=crop" alt="个人照片2" class="carousel-image">
+                        <div class="carousel-caption">
+                            <h3>城市夜景</h3>
+                            <p>夜晚的城市总是充满魅力和神秘感</p>
+                        </div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=800&h=600&fit=crop" alt="个人照片3" class="carousel-image">
+                        <div class="carousel-caption">
+                            <h3>工作时光</h3>
+                            <p>专注工作的每一刻都值得珍惜</p>
+                        </div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=800&h=600&fit=crop" alt="个人照片4" class="carousel-image">
+                        <div class="carousel-caption">
+                            <h3>自然风光</h3>
+                            <p>大自然的鬼斧神工让人叹为观止</p>
+                        </div>
+                    </div>
+                </div>
+                <button class="carousel-btn prev" onclick="changeSlide(-1)">❮</button>
+                <button class="carousel-btn next" onclick="changeSlide(1)">❯</button>
+                <div class="carousel-dots">
+                    <span class="dot active" onclick="goToSlide(1)"></span>
+                    <span class="dot" onclick="goToSlide(2)"></span>
+                    <span class="dot" onclick="goToSlide(3)"></span>
+                    <span class="dot" onclick="goToSlide(4)"></span>
+                </div>
+            </div>
+        </section>
+
+        <!-- 个人介绍部分 -->
+        <section id="about" class="about-section">
+            <div class="container">
+                <div class="about-content">
+                    <div class="about-avatar">
+                        <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&h=200&fit=crop&crop=face" alt="个人头像" class="avatar-image">
+                    </div>
+                    <div class="about-text">
+                        <h2>关于我</h2>
+                        <p>大家好！我是张三，一名充满激情的网页设计师和开发者。我热爱创造美观且实用的数字体验，专注于用户体验设计和前端开发。</p>
+                        <p>在我的职业生涯中，我参与过多个重要项目，从企业网站到移动应用，每一个项目都让我积累了宝贵的经验。我相信好的设计不仅要美观，更要实用和易用。</p>
+                        <p>在工作之余，我喜欢摄影、旅行和阅读。这些爱好不仅丰富了我的生活，也为我的设计工作带来了新的灵感和视角。</p>
+                        <div class="skills">
+                            <h3>专业技能</h3>
+                            <div class="skill-tags">
+                                <span class="skill-tag">HTML5</span>
+                                <span class="skill-tag">CSS3</span>
+                                <span class="skill-tag">JavaScript</span>
+                                <span class="skill-tag">React</span>
+                                <span class="skill-tag">UI/UX设计</span>
+                                <span class="skill-tag">响应式设计</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 社交媒体链接 -->
+        <section class="social-section">
+            <div class="container">
+                <h2>关注我</h2>
+                <div class="social-links">
+                    <a href="https://www.instagram.com/win.zhang686?igsh=eHNxdWZzM3BvdnN5&utm_source=qr" class="social-link" title="Instagram" target="_blank" rel="noopener">
+                        <i class="fab fa-instagram"></i>
+                        <span>Instagram</span>
+                    </a>
+                    <a href="https://t.me/Win_zha" class="social-link" title="Twitter" target="_blank" rel="noopener">
+                        <i class="fab fa-twitter"></i>
+                        <span>Twitter</span>
+                    </a>
+                    <a href="mailto:win.zhang888@gmail.com" class="social-link" title="发送邮件">
+                        <i class="fas fa-envelope"></i>
+                        <span>win.zhang888@gmail.com</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 我的个人网站. 保留所有权利.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>个人网站管理界面</title>
+    <link rel="stylesheet" href="admin.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- 顶部导航栏 -->
+    <nav class="admin-navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <h1><i class="fas fa-cog"></i> 管理界面</h1>
+            </div>
+            <div class="nav-actions">
+                <button class="btn btn-primary" onclick="saveAllChanges()">
+                    <i class="fas fa-save"></i> 保存所有更改
+                </button>
+                <button class="btn btn-secondary" onclick="window.open('index.html', '_blank')">
+                    <i class="fas fa-external-link-alt"></i> 查看网站
+                </button>
+                <button class="btn btn-danger" onclick="logout()">
+                    <i class="fas fa-sign-out-alt"></i> 退出登录
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 主体内容 -->
+    <main class="admin-main">
+        <div class="admin-container">
+            <!-- 照片管理部分 -->
+            <section class="admin-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-images"></i> 照片管理</h2>
+                    <button class="btn btn-success" onclick="addNewPhoto()">
+                        <i class="fas fa-plus"></i> 添加新照片
+                    </button>
+                </div>
+                
+                <div class="photo-grid" id="photoGrid">
+                    <!-- 照片项目将通过JavaScript动态生成 -->
+                </div>
+            </section>
+
+            <!-- 个人简介管理 -->
+            <section class="admin-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-user-edit"></i> 个人简介管理</h2>
+                </div>
+                
+                <div class="form-group">
+                    <label for="personalName">姓名</label>
+                    <input type="text" id="personalName" placeholder="请输入您的姓名">
+                </div>
+                
+                <div class="form-group">
+                    <label for="personalTitle">职业标题</label>
+                    <input type="text" id="personalTitle" placeholder="例如：网页设计师和开发者">
+                </div>
+                
+                <div class="form-group">
+                    <label for="personalIntro">个人简介</label>
+                    <textarea id="personalIntro" rows="6" placeholder="请输入详细的个人介绍..."></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="personalHobbies">兴趣爱好</label>
+                    <textarea id="personalHobbies" rows="3" placeholder="请输入您的兴趣爱好..."></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label>技能标签</label>
+                    <div class="skills-manager">
+                        <div class="skills-input">
+                            <input type="text" id="newSkill" placeholder="输入新技能">
+                            <button class="btn btn-small" onclick="addSkill()">添加</button>
+                        </div>
+                        <div class="skills-list" id="skillsList">
+                            <!-- 技能标签将通过JavaScript动态生成 -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 联系方式管理 -->
+            <section class="admin-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-address-book"></i> 联系方式管理</h2>
+                </div>
+                
+                <div class="form-group">
+                    <label for="emailAddress">邮箱地址</label>
+                    <input type="email" id="emailAddress" placeholder="请输入邮箱地址">
+                </div>
+                
+                <div class="form-group">
+                    <label>社交媒体链接</label>
+                    <div class="social-links-manager">
+                        <div class="social-item">
+                            <label>Instagram</label>
+                            <input type="url" id="instagramUrl" placeholder="Instagram链接">
+                        </div>
+                        <div class="social-item">
+                            <label>Twitter</label>
+                            <input type="url" id="twitterUrl" placeholder="Twitter链接">
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 账号密码管理 -->
+            <section class="admin-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-key"></i> 账号密码管理</h2>
+                </div>
+                
+                <div class="form-group">
+                    <label for="currentPassword">当前密码</label>
+                    <input type="password" id="currentPassword" placeholder="请输入当前密码">
+                </div>
+                
+                <div class="form-group">
+                    <label for="newPassword">新密码</label>
+                    <input type="password" id="newPassword" placeholder="请输入新密码">
+                </div>
+                
+                <div class="form-group">
+                    <label for="confirmPassword">确认新密码</label>
+                    <input type="password" id="confirmPassword" placeholder="请再次输入新密码">
+                </div>
+                
+                <div class="form-group">
+                    <button class="btn btn-warning" onclick="changePassword()">
+                        <i class="fas fa-key"></i> 修改密码
+                    </button>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- 照片编辑模态框 -->
+    <div class="modal" id="photoModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>编辑照片信息</h3>
+                <span class="close" onclick="closePhotoModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="photoTitle">照片标题</label>
+                    <input type="text" id="photoTitle" placeholder="请输入照片标题">
+                </div>
+                <div class="form-group">
+                    <label for="photoDescription">照片描述</label>
+                    <textarea id="photoDescription" rows="3" placeholder="请输入照片描述"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="photoUrl">照片URL</label>
+                    <input type="url" id="photoUrl" placeholder="请输入照片链接">
+                </div>
+                <div class="form-group">
+                    <label for="photoFile">上传新照片</label>
+                    <input type="file" id="photoFile" accept="image/*">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closePhotoModal()">取消</button>
+                <button class="btn btn-primary" onclick="savePhotoChanges()">保存</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 确认删除模态框 -->
+    <div class="modal" id="deleteModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>确认删除</h3>
+                <span class="close" onclick="closeDeleteModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <p>确定要删除这张照片吗？此操作无法撤销。</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeDeleteModal()">取消</button>
+                <button class="btn btn-danger" onclick="confirmDeletePhoto()">删除</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="admin.js"></script>
+</body>
+</html>
