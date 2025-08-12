@@ -53,6 +53,22 @@
                 </div>
                 
                 <div class="form-group">
+                    <label for="avatarImage">个人头像</label>
+                    <div class="avatar-manager">
+                        <div class="avatar-preview">
+                            <img id="avatarPreview" src="im/微信图片_20250812105150_19.jpg" alt="头像预览" class="avatar-preview-img">
+                        </div>
+                        <div class="avatar-upload">
+                            <input type="file" id="avatarFile" accept="image/*" onchange="previewAvatar(this)">
+                            <button class="btn btn-small" onclick="document.getElementById('avatarFile').click()">
+                                <i class="fas fa-upload"></i> 选择头像
+                            </button>
+                            <p class="avatar-tip">支持 JPG、PNG 格式，建议尺寸 200x200 像素</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
                     <label for="personalName">姓名</label>
                     <input type="text" id="personalName" placeholder="请输入您的姓名">
                 </div>

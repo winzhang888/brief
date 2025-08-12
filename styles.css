@@ -41,6 +41,14 @@ body {
     height: 70px;
 }
 
+.nav-menu {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+    margin: 0;
+    padding: 0;
+}
+
 .nav-logo h1 {
     font-size: 1.8rem;
     font-weight: 700;
@@ -56,6 +64,7 @@ body {
 .nav-admin {
     display: flex;
     align-items: center;
+    margin-left: auto;
 }
 
 .admin-btn {
@@ -88,11 +97,7 @@ body {
     font-weight: 500;
 }
 
-.nav-menu {
-    display: flex;
-    list-style: none;
-    gap: 2rem;
-}
+
 
 .nav-menu a {
     text-decoration: none;

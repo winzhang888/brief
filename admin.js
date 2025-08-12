@@ -59,6 +59,7 @@ class AdminManager {
         
         // 默认数据
         return {
+            avatar: 'im/微信图片_20250812105150_19.jpg',
             photos: [
                 {
                     id: 1,
@@ -168,6 +169,11 @@ class AdminManager {
         document.getElementById('personalIntro').value = personalInfo.intro;
         document.getElementById('personalHobbies').value = personalInfo.hobbies;
         
+        // 加载头像
+        if (this.data.avatar) {
+            document.getElementById('avatarPreview').src = this.data.avatar;
+        }
+        
         this.loadSkills();
     }
 
@@ -236,6 +242,11 @@ class AdminManager {
         this.data.contactInfo.email = document.getElementById('emailAddress').value;
         this.data.contactInfo.social.instagram = document.getElementById('instagramUrl').value;
         this.data.contactInfo.social.twitter = document.getElementById('twitterUrl').value;
+
+        // 保存头像
+        if (this.data.avatar) {
+            // 头像已经在previewAvatar方法中更新
+        }
 
         this.saveData();
     }
@@ -593,3 +604,27 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
+
+// 头像预览和更新函数
+function previewAvatar(input) {
+    const file = input.files[0];
+    if (file) {
+        if (file.type.startsWith('image/')) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const avatarPreview = document.getElementById('avatarPreview');
+                avatarPreview.src = e.target.result;
+                
+                // 更新数据中的头像
+                if (window.adminManager) {
+                    window.adminManager.data.avatar = e.target.result;
+                    window.adminManager.saveData();
+                    window.adminManager.showSuccessMessage('头像更新成功！');
+                }
+            };
+            reader.readAsDataURL(file);
+        } else {
+            alert('请选择图片文件');
+        }
+    }
+}
