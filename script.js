@@ -150,8 +150,6 @@ function initSocialEffects() {
     
     socialLinks.forEach(link => {
         link.addEventListener('click', (e) => {
-            e.preventDefault();
-            
             // 创建点击波纹效果
             const ripple = document.createElement('div');
             ripple.style.position = 'absolute';

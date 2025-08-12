@@ -62,33 +62,51 @@ class AdminManager {
             photos: [
                 {
                     id: 1,
-                    url: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&h=600&fit=crop',
-                    title: '美丽的风景',
-                    description: '拍摄于2024年春天，记录下这美好的时刻'
+                    url: 'im/微信图片_20250812105148_12.jpg',
+                    title: '个人照片1',
+                    description: '个人生活照片'
                 },
                 {
                     id: 2,
-                    url: 'https://images.unsplash.com/photo-1494790108755-2616b612b786?w=800&h=600&fit=crop',
-                    title: '城市夜景',
-                    description: '夜晚的城市总是充满魅力和神秘感'
+                    url: 'im/微信图片_20250812105149_13.jpg',
+                    title: '个人照片2',
+                    description: '个人生活照片'
                 },
                 {
                     id: 3,
-                    url: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=800&h=600&fit=crop',
-                    title: '工作时光',
-                    description: '专注工作的每一刻都值得珍惜'
+                    url: 'im/微信图片_20250812105149_14.jpg',
+                    title: '个人照片3',
+                    description: '个人生活照片'
                 },
                 {
                     id: 4,
-                    url: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=800&h=600&fit=crop',
-                    title: '自然风光',
-                    description: '大自然的鬼斧神工让人叹为观止'
+                    url: 'im/微信图片_20250812105149_15.jpg',
+                    title: '个人照片4',
+                    description: '个人生活照片'
+                },
+                {
+                    id: 5,
+                    url: 'im/微信图片_20250812105149_18.jpg',
+                    title: '个人照片5',
+                    description: '个人生活照片'
+                },
+                {
+                    id: 6,
+                    url: 'im/微信图片_20250812105150_16.jpg',
+                    title: '个人照片6',
+                    description: '个人生活照片'
+                },
+                {
+                    id: 7,
+                    url: 'im/微信图片_20250812105150_19.jpg',
+                    title: '个人照片7',
+                    description: '个人生活照片'
                 }
             ],
             personalInfo: {
-                name: '张三',
+                name: 'win.zhang',
                 title: '网页设计师和开发者',
-                intro: '大家好！我是张三，一名充满激情的网页设计师和开发者。我热爱创造美观且实用的数字体验，专注于用户体验设计和前端开发。\n\n在我的职业生涯中，我参与过多个重要项目，从企业网站到移动应用，每一个项目都让我积累了宝贵的经验。我相信好的设计不仅要美观，更要实用和易用。\n\n在工作之余，我喜欢摄影、旅行和阅读。这些爱好不仅丰富了我的生活，也为我的设计工作带来了新的灵感和视角。',
+                intro: '大家好！我是win.zhang，一名充满激情的网页设计师和开发者。我热爱创造美观且实用的数字体验，专注于用户体验设计和前端开发。\n\n在我的职业生涯中，我参与过多个重要项目，从企业网站到移动应用，每一个项目都让我积累了宝贵的经验。我相信好的设计不仅要美观，更要实用和易用。\n\n在工作之余，我喜欢摄影、旅行和阅读。这些爱好不仅丰富了我的生活，也为我的设计工作带来了新的灵感和视角。',
                 hobbies: '摄影、旅行和阅读',
                 skills: ['HTML5', 'CSS3', 'JavaScript', 'React', 'UI/UX设计', '响应式设计']
             },
