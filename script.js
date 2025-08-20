@@ -23,6 +23,8 @@ class FrontendDataManager {
         } else {
             // 如果没有数据，也要绑定轮播事件
             this.bindCarouselEvents();
+            // 确保静态轮播图也能工作
+            initCarousel();
         }
         
         // 启动数据同步
@@ -162,17 +164,23 @@ class FrontendDataManager {
         const nextBtn = document.querySelector('.carousel-btn.next');
         
         if (prevBtn) {
-            prevBtn.onclick = () => changeSlide(-1);
+            // 移除旧的onclick属性，使用addEventListener
+            prevBtn.removeAttribute('onclick');
+            prevBtn.addEventListener('click', () => changeSlide(-1));
         }
         
         if (nextBtn) {
-            nextBtn.onclick = () => changeSlide(1);
+            // 移除旧的onclick属性，使用addEventListener
+            nextBtn.removeAttribute('onclick');
+            nextBtn.addEventListener('click', () => changeSlide(1));
         }
         
         // 绑定轮播点点击事件
         const dots = document.querySelectorAll('.dot');
         dots.forEach((dot, index) => {
-            dot.onclick = () => goToSlide(index + 1);
+            // 移除旧的onclick属性，使用addEventListener
+            dot.removeAttribute('onclick');
+            dot.addEventListener('click', () => goToSlide(index + 1));
         });
     }
 
@@ -224,24 +232,39 @@ function initCarousel() {
 
 // 显示指定幻灯片
 function showSlide(n) {
+    // 确保slides和dots存在且有内容
+    if (!slides || slides.length === 0 || !dots || dots.length === 0) {
+        return;
+    }
+    
     // 隐藏所有幻灯片
     slides.forEach(slide => slide.classList.remove('active'));
     dots.forEach(dot => dot.classList.remove('active'));
     
     // 显示当前幻灯片
     currentSlide = (n + slides.length) % slides.length;
-    slides[currentSlide].classList.add('active');
-    dots[currentSlide].classList.add('active');
+    if (slides[currentSlide]) {
+        slides[currentSlide].classList.add('active');
+    }
+    if (dots[currentSlide]) {
+        dots[currentSlide].classList.add('active');
+    }
 }
 
 // 切换幻灯片
 function changeSlide(direction) {
-    showSlide(currentSlide + direction);
+    // 确保使用全局变量
+    if (typeof currentSlide !== 'undefined' && slides && slides.length > 0) {
+        showSlide(currentSlide + direction);
+    }
 }
 
 // 跳转到指定幻灯片
 function goToSlide(n) {
-    showSlide(n - 1);
+    // 确保使用全局变量
+    if (slides && slides.length > 0) {
+        showSlide(n - 1);
+    }
 }
 
 // 移动端导航菜单
