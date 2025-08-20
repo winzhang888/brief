@@ -59,6 +59,9 @@ class FrontendDataManager {
         
         // 重新绑定轮播按钮事件
         this.bindCarouselEvents();
+        
+        // 调用全局轮播初始化
+        initCarousel();
     }
 
     // 更新轮播点
@@ -149,13 +152,7 @@ class FrontendDataManager {
             showSlide(0);
         }
         
-        // 重新启动自动播放
-        if (window.carouselInterval) {
-            clearInterval(window.carouselInterval);
-        }
-        window.carouselInterval = setInterval(() => {
-            changeSlide(1);
-        }, 5000);
+        // 不在这里创建定时器，让全局的initCarousel处理
     }
 
     // 绑定轮播按钮事件
@@ -202,18 +199,25 @@ class FrontendDataManager {
 
 // 轮播功能
 let currentSlide = 0;
-let slides = document.querySelectorAll('.carousel-slide');
-let dots = document.querySelectorAll('.dot');
+let slides = [];
+let dots = [];
 
 // 初始化轮播
 function initCarousel() {
+    // 重新获取元素引用
+    slides = document.querySelectorAll('.carousel-slide');
+    dots = document.querySelectorAll('.dot');
+    
     if (slides.length === 0) return;
     
     // 显示第一张幻灯片
-    showSlide(currentSlide);
+    showSlide(0);
     
-    // 自动播放轮播
-    setInterval(() => {
+    // 启动自动播放
+    if (window.carouselInterval) {
+        clearInterval(window.carouselInterval);
+    }
+    window.carouselInterval = setInterval(() => {
         changeSlide(1);
     }, 5000);
 }
