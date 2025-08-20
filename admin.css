@@ -33,6 +33,7 @@ body {
     align-items: center;
     height: 70px;
     gap: 20px;
+    flex-wrap: wrap;
 }
 
 .nav-logo h1 {
@@ -450,10 +451,17 @@ body {
         min-height: 70px;
         flex-wrap: wrap;
         gap: 15px;
+        align-items: flex-start;
+        padding-top: 15px;
+        padding-bottom: 15px;
+    }
+    
+    .nav-logo {
+        flex-shrink: 0;
     }
     
     .admin-main {
-        margin-top: 120px;
+        margin-top: 140px;
         padding: 20px 0;
     }
     
@@ -481,6 +489,7 @@ body {
         gap: 8px;
         width: 100%;
         max-width: 200px;
+        flex-shrink: 0;
     }
     
     .nav-actions .btn {
@@ -488,6 +497,9 @@ body {
         justify-content: center;
         padding: 10px 16px;
         font-size: 0.85rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
     
     .photo-grid {
@@ -514,6 +526,8 @@ body {
     .nav-container {
         padding: 0 10px;
         gap: 10px;
+        padding-top: 10px;
+        padding-bottom: 10px;
     }
     
     .nav-logo h1 {
@@ -521,7 +535,7 @@ body {
     }
     
     .admin-main {
-        margin-top: 130px;
+        margin-top: 150px;
         padding: 15px 0;
     }
     
@@ -552,6 +566,8 @@ body {
     .nav-container {
         padding: 0 8px;
         gap: 8px;
+        padding-top: 8px;
+        padding-bottom: 8px;
     }
     
     .nav-logo h1 {
@@ -568,7 +584,53 @@ body {
     }
     
     .admin-main {
+        margin-top: 160px;
+    }
+}
+
+/* 专门针对竖屏手机的优化 */
+@media (max-width: 480px) and (orientation: portrait) {
+    .nav-container {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        height: auto;
+        min-height: 120px;
+    }
+    
+    .nav-logo {
+        margin-bottom: 10px;
+    }
+    
+    .nav-actions {
+        max-width: 100%;
+        width: 100%;
+    }
+    
+    .nav-actions .btn {
+        max-width: 250px;
+        margin: 0 auto;
+    }
+    
+    .admin-main {
         margin-top: 140px;
+    }
+}
+
+/* 超小屏幕竖屏优化 */
+@media (max-width: 360px) and (orientation: portrait) {
+    .nav-container {
+        min-height: 110px;
+    }
+    
+    .nav-actions .btn {
+        max-width: 220px;
+        font-size: 0.7rem;
+        padding: 6px 8px;
+    }
+    
+    .admin-main {
+        margin-top: 130px;
     }
 }
 
