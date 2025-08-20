@@ -148,6 +148,14 @@ class FrontendDataManager {
         if (window.slides.length > 0) {
             showSlide(0);
         }
+        
+        // 重新启动自动播放
+        if (window.carouselInterval) {
+            clearInterval(window.carouselInterval);
+        }
+        window.carouselInterval = setInterval(() => {
+            changeSlide(1);
+        }, 5000);
     }
 
     // 绑定轮播按钮事件

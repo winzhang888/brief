@@ -220,7 +220,7 @@ class AdminManager {
             // 头像已经在previewAvatar方法中更新
         }
 
-        this.saveData();
+        // 不自动保存，等待用户点击"保存所有更改"
     }
 
     // 修改密码
@@ -305,7 +305,7 @@ class AdminManager {
         this.currentEditingPhoto.url = url;
 
         this.loadPhotos();
-        this.saveData();
+        // 不自动保存，等待用户点击"保存所有更改"
         this.closePhotoModal();
     }
 
@@ -323,7 +323,7 @@ class AdminManager {
         if (index > -1) {
             this.data.photos.splice(index, 1);
             this.loadPhotos();
-            this.saveData();
+            // 不自动保存，等待用户点击"保存所有更改"
         }
 
         this.closeDeleteModal();
@@ -346,7 +346,7 @@ class AdminManager {
 
         this.data.personalInfo.skills.push(skill);
         this.loadSkills();
-        this.saveData();
+        // 不自动保存，等待用户点击"保存所有更改"
         skillInput.value = '';
     }
 
@@ -356,7 +356,7 @@ class AdminManager {
         if (index > -1) {
             this.data.personalInfo.skills.splice(index, 1);
             this.loadSkills();
-            this.saveData();
+            // 不自动保存，等待用户点击"保存所有更改"
         }
     }
 
@@ -387,6 +387,8 @@ class AdminManager {
     // 保存所有更改
     saveAllChanges() {
         this.saveFormData();
+        // 真正保存数据到localStorage
+        this.saveData();
         this.showSuccessMessage('所有更改已保存');
     }
 
@@ -432,8 +434,8 @@ class AdminManager {
                 this.loadPhotos();
                 this.loadPersonalInfo();
                 this.loadContactInfo();
-                this.saveData();
-                this.showSuccessMessage('数据导入成功');
+                // 不自动保存，等待用户点击"保存所有更改"
+                this.showSuccessMessage('数据导入成功，请点击"保存所有更改"保存！');
             } catch (error) {
                 alert('数据格式错误，导入失败');
             }
@@ -588,10 +590,10 @@ document.addEventListener('DOMContentLoaded', () => {
                         description: '请编辑照片信息'
                     };
                     
-                    adminManager.data.photos.push(newPhoto);
-                    adminManager.loadPhotos();
-                    adminManager.saveData();
-                    adminManager.showSuccessMessage('照片上传成功');
+                                         adminManager.data.photos.push(newPhoto);
+                     adminManager.loadPhotos();
+                     // 不自动保存，等待用户点击"保存所有更改"
+                     adminManager.showSuccessMessage('照片上传成功');
                 };
                 reader.readAsDataURL(file);
             }
@@ -609,12 +611,12 @@ function previewAvatar(input) {
                 const avatarPreview = document.getElementById('avatarPreview');
                 avatarPreview.src = e.target.result;
                 
-                // 更新数据中的头像
-                if (window.adminManager) {
-                    window.adminManager.data.avatar = e.target.result;
-                    window.adminManager.saveData();
-                    window.adminManager.showSuccessMessage('头像更新成功！');
-                }
+                                 // 更新数据中的头像
+                 if (window.adminManager) {
+                     window.adminManager.data.avatar = e.target.result;
+                     // 不自动保存，等待用户点击"保存所有更改"
+                     window.adminManager.showSuccessMessage('头像已更新，请点击"保存所有更改"保存！');
+                 }
             };
             reader.readAsDataURL(file);
         } else {
