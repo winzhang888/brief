@@ -1,10 +1,11 @@
 // 管理界面数据管理
 class AdminManager {
     constructor() {
-        this.checkLoginStatus();
-        this.data = this.loadData();
-        this.currentEditingPhoto = null;
-        this.init();
+        if (this.checkLoginStatus()) {
+            this.data = this.loadData();
+            this.currentEditingPhoto = null;
+            this.init();
+        }
     }
 
     // 检查登录状态
@@ -13,8 +14,9 @@ class AdminManager {
         
         if (!isLoggedIn) {
             this.redirectToLogin();
-            return;
+            return false;
         }
+        return true;
     }
 
     // 重定向到登录页面
@@ -519,43 +521,56 @@ function changePassword() {
 
 // 页面加载完成后初始化
 document.addEventListener('DOMContentLoaded', () => {
-    window.adminManager = new AdminManager();
+    // 检查登录状态
+    const isLoggedIn = sessionStorage.getItem('adminLoggedIn');
     
-    // 添加键盘快捷键
-    document.addEventListener('keydown', (e) => {
-        if (e.ctrlKey || e.metaKey) {
-            switch(e.key) {
-                case 's':
-                    e.preventDefault();
-                    saveAllChanges();
-                    break;
-                case 'n':
-                    e.preventDefault();
-                    addNewPhoto();
-                    break;
-            }
-        }
+    if (isLoggedIn) {
+        window.adminManager = new AdminManager();
         
-        if (e.key === 'Escape') {
-            closePhotoModal();
-            closeDeleteModal();
-        }
-    });
+        // 添加键盘快捷键
+        document.addEventListener('keydown', (e) => {
+            if (e.ctrlKey || e.metaKey) {
+                switch(e.key) {
+                    case 's':
+                        e.preventDefault();
+                        saveAllChanges();
+                        break;
+                    case 'n':
+                        e.preventDefault();
+                        addNewPhoto();
+                        break;
+                }
+            }
+            
+            if (e.key === 'Escape') {
+                closePhotoModal();
+                closeDeleteModal();
+            }
+        });
+    }
 });
 
 // 文件上传处理
-document.getElementById('photoFile').addEventListener('change', function(e) {
-    const file = e.target.files[0];
-    if (file) {
-        if (file.type.startsWith('image/')) {
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                document.getElementById('photoUrl').value = e.target.result;
-            };
-            reader.readAsDataURL(file);
-        } else {
-            alert('请选择图片文件');
-        }
+document.addEventListener('DOMContentLoaded', () => {
+    const photoFileInput = document.getElementById('photoFile');
+    if (photoFileInput) {
+        photoFileInput.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                if (file.type.startsWith('image/')) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        const photoUrlInput = document.getElementById('photoUrl');
+                        if (photoUrlInput) {
+                            photoUrlInput.value = e.target.result;
+                        }
+                    };
+                    reader.readAsDataURL(file);
+                } else {
+                    alert('请选择图片文件');
+                }
+            }
+        });
     }
 });
 
@@ -583,17 +598,19 @@ document.addEventListener('DOMContentLoaded', () => {
             if (file.type.startsWith('image/')) {
                 const reader = new FileReader();
                 reader.onload = function(e) {
-                    const newPhoto = {
-                        id: Date.now(),
-                        url: e.target.result,
-                        title: '新上传的照片',
-                        description: '请编辑照片信息'
-                    };
-                    
-                                         adminManager.data.photos.push(newPhoto);
-                     adminManager.loadPhotos();
-                     // 不自动保存，等待用户点击"保存所有更改"
-                     adminManager.showSuccessMessage('照片上传成功');
+                    if (window.adminManager) {
+                        const newPhoto = {
+                            id: Date.now(),
+                            url: e.target.result,
+                            title: '新上传的照片',
+                            description: '请编辑照片信息'
+                        };
+                        
+                        adminManager.data.photos.push(newPhoto);
+                        adminManager.loadPhotos();
+                        // 不自动保存，等待用户点击"保存所有更改"
+                        adminManager.showSuccessMessage('照片上传成功');
+                    }
                 };
                 reader.readAsDataURL(file);
             }
