@@ -32,6 +32,7 @@ body {
     justify-content: space-between;
     align-items: center;
     height: 70px;
+    gap: 20px;
 }
 
 .nav-logo h1 {
@@ -42,6 +43,8 @@ body {
 .nav-actions {
     display: flex;
     gap: 15px;
+    align-items: center;
+    flex-shrink: 0;
 }
 
 /* 主体内容 */
@@ -441,6 +444,19 @@ body {
 
 /* 响应式设计 */
 @media (max-width: 768px) {
+    .nav-container {
+        padding: 0 15px;
+        height: auto;
+        min-height: 70px;
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+    
+    .admin-main {
+        margin-top: 120px;
+        padding: 20px 0;
+    }
+    
     .admin-container {
         padding: 0 15px;
     }
@@ -462,7 +478,16 @@ body {
     
     .nav-actions {
         flex-direction: column;
-        gap: 10px;
+        gap: 8px;
+        width: 100%;
+        max-width: 200px;
+    }
+    
+    .nav-actions .btn {
+        width: 100%;
+        justify-content: center;
+        padding: 10px 16px;
+        font-size: 0.85rem;
     }
     
     .photo-grid {
@@ -486,12 +511,31 @@ body {
 }
 
 @media (max-width: 480px) {
+    .nav-container {
+        padding: 0 10px;
+        gap: 10px;
+    }
+    
+    .nav-logo h1 {
+        font-size: 1.2rem;
+    }
+    
     .admin-main {
-        padding: 20px 0;
+        margin-top: 130px;
+        padding: 15px 0;
     }
     
     .admin-section {
         padding: 15px;
+    }
+    
+    .nav-actions {
+        max-width: 180px;
+    }
+    
+    .nav-actions .btn {
+        padding: 8px 12px;
+        font-size: 0.8rem;
     }
     
     .btn {
@@ -501,6 +545,30 @@ body {
     
     .photo-actions {
         flex-direction: column;
+    }
+}
+
+@media (max-width: 360px) {
+    .nav-container {
+        padding: 0 8px;
+        gap: 8px;
+    }
+    
+    .nav-logo h1 {
+        font-size: 1.1rem;
+    }
+    
+    .nav-actions {
+        max-width: 160px;
+    }
+    
+    .nav-actions .btn {
+        padding: 6px 10px;
+        font-size: 0.75rem;
+    }
+    
+    .admin-main {
+        margin-top: 140px;
     }
 }
 
