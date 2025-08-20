@@ -421,6 +421,24 @@ class AdminManager {
         this.showSuccessMessage('所有更改已保存');
     }
 
+    // 重置为默认数据
+    resetToDefault() {
+        if (confirm('确定要重置为默认数据吗？这将清除所有已保存的更改。')) {
+            // 清除localStorage中的数据
+            localStorage.removeItem('personalWebsiteData');
+            
+            // 重新加载默认数据
+            this.data = this.loadData();
+            
+            // 重新加载界面
+            this.loadPhotos();
+            this.loadPersonalInfo();
+            this.loadContactInfo();
+            
+            this.showSuccessMessage('已重置为默认数据');
+        }
+    }
+
     // 导出数据
     exportData() {
         const dataStr = JSON.stringify(this.data, null, 2);
@@ -502,6 +520,10 @@ function closeDeleteModal() {
 
 function saveAllChanges() {
     adminManager.saveAllChanges();
+}
+
+function resetToDefault() {
+    adminManager.resetToDefault();
 }
 
 // 点击模态框外部关闭
