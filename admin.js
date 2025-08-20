@@ -106,16 +106,17 @@ class AdminManager {
             ],
             personalInfo: {
                 name: 'win.zhang',
-                title: '网页设计师和开发者',
-                intro: '大家好！我是win.zhang，一名充满激情的网页设计师和开发者。我热爱创造美观且实用的数字体验，专注于用户体验设计和前端开发。\n\n在我的职业生涯中，我参与过多个重要项目，从企业网站到移动应用，每一个项目都让我积累了宝贵的经验。我相信好的设计不仅要美观，更要实用和易用。\n\n在工作之余，我喜欢摄影、旅行和阅读。这些爱好不仅丰富了我的生活，也为我的设计工作带来了新的灵感和视角。',
+                title: '资深运维专家与数据库开发工程师',
+                intro: '大家好！我是win.zhang，资深运维专家与数据库开发工程师，拥有近10年IT运维及团队管理经验，专注于网络、系统、数据库及机房的全栈式运维。\n\n具备RHCE、CCIE等行业认证，不仅擅长从零搭建高可用性基础设施，保障企业信息安全与高效运营，更能深度参与数据库开发与优化，为业务提供坚实的数据支撑。\n\n在工作之余，我喜欢摄影、旅行和阅读。这些爱好不仅丰富了我的生活，也为我的技术工作带来了新的灵感和视角。',
                 hobbies: '摄影、旅行和阅读',
-                skills: ['HTML5', 'CSS3', 'JavaScript', 'React', 'UI/UX设计', '响应式设计']
+                skills: ['Linux运维', '数据库开发', '网络架构', '高可用性设计', '信息安全']
             },
             contactInfo: {
                 email: 'win.zhang888@gmail.com',
                 social: {
-                    instagram: '',
-                    twitter: ''
+                    instagram: 'https://www.instagram.com/win.zhang686?igsh=eHNxdWZzM3BvdnN5&utm_source=qr',
+                    twitter: 'https://x.com/win_zhang888?s=21',
+                    telegram: 'https://t.me/Win_zha'
                 }
             }
         };
@@ -202,6 +203,7 @@ class AdminManager {
         document.getElementById('emailAddress').value = contactInfo.email;
         document.getElementById('instagramUrl').value = contactInfo.social.instagram;
         document.getElementById('twitterUrl').value = contactInfo.social.twitter;
+        document.getElementById('telegramUrl').value = contactInfo.social.telegram;
     }
 
     // 绑定事件
@@ -242,6 +244,7 @@ class AdminManager {
         this.data.contactInfo.email = document.getElementById('emailAddress').value;
         this.data.contactInfo.social.instagram = document.getElementById('instagramUrl').value;
         this.data.contactInfo.social.twitter = document.getElementById('twitterUrl').value;
+        this.data.contactInfo.social.telegram = document.getElementById('telegramUrl').value;
 
         // 保存头像
         if (this.data.avatar) {
