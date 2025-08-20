@@ -106,7 +106,7 @@ class LoginManager {
     checkLoginStatus() {
         const isLoggedIn = sessionStorage.getItem('adminLoggedIn');
         
-        if (isLoggedIn) {
+        if (isLoggedIn === 'true') {
             // 如果已登录，直接跳转到管理界面
             window.location.href = 'admin.html';
         }
