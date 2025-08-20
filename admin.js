@@ -1,22 +1,15 @@
 // 管理界面数据管理
 class AdminManager {
     constructor() {
-        if (this.checkLoginStatus()) {
-            this.data = this.loadData();
-            this.currentEditingPhoto = null;
-            this.init();
-        }
+        this.data = this.loadData();
+        this.currentEditingPhoto = null;
+        this.init();
     }
 
     // 检查登录状态
     checkLoginStatus() {
         const isLoggedIn = sessionStorage.getItem('adminLoggedIn');
-        
-        if (!isLoggedIn) {
-            this.redirectToLogin();
-            return false;
-        }
-        return true;
+        return isLoggedIn === 'true';
     }
 
     // 重定向到登录页面
@@ -408,6 +401,11 @@ class AdminManager {
             this.loadPersonalInfo();
             this.loadContactInfo();
             
+            // 更新头像预览
+            if (this.data.avatar) {
+                document.getElementById('avatarPreview').src = this.data.avatar;
+            }
+            
             this.showSuccessMessage('已重置为默认数据');
         }
     }
@@ -524,7 +522,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // 检查登录状态
     const isLoggedIn = sessionStorage.getItem('adminLoggedIn');
     
-    if (isLoggedIn) {
+    if (isLoggedIn === 'true') {
         window.adminManager = new AdminManager();
         
         // 添加键盘快捷键
@@ -547,6 +545,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 closeDeleteModal();
             }
         });
+    } else {
+        // 如果没有登录，重定向到登录页面
+        window.location.href = 'login.html';
     }
 });
 
