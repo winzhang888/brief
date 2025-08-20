@@ -1,7 +1,174 @@
+// 数据管理系统
+class FrontendDataManager {
+    constructor() {
+        this.data = this.loadData();
+        this.init();
+    }
+
+    // 加载数据
+    loadData() {
+        const savedData = localStorage.getItem('personalWebsiteData');
+        if (savedData) {
+            return JSON.parse(savedData);
+        }
+        return null;
+    }
+
+    // 初始化
+    init() {
+        if (this.data) {
+            this.updateCarousel();
+            this.updatePersonalInfo();
+            this.updateSocialLinks();
+        }
+        
+        // 启动数据同步
+        this.startDataSync();
+    }
+
+    // 更新轮播图
+    updateCarousel() {
+        const carousel = document.querySelector('.carousel');
+        if (!carousel || !this.data.photos) return;
+
+        // 清空现有内容
+        carousel.innerHTML = '';
+
+        // 重新生成轮播图
+        this.data.photos.forEach((photo, index) => {
+            const slide = document.createElement('div');
+            slide.className = `carousel-slide ${index === 0 ? 'active' : ''}`;
+            slide.innerHTML = `
+                <img src="${photo.url}" alt="${photo.title}" class="carousel-image">
+                <div class="carousel-caption">
+                    <h3>${photo.title}</h3>
+                    <p>${photo.description}</p>
+                </div>
+            `;
+            carousel.appendChild(slide);
+        });
+
+        // 更新轮播点
+        this.updateCarouselDots();
+        
+        // 重新初始化轮播功能
+        this.initCarousel();
+    }
+
+    // 更新轮播点
+    updateCarouselDots() {
+        const dotsContainer = document.querySelector('.carousel-dots');
+        if (!dotsContainer || !this.data.photos) return;
+
+        dotsContainer.innerHTML = '';
+        this.data.photos.forEach((_, index) => {
+            const dot = document.createElement('span');
+            dot.className = `dot ${index === 0 ? 'active' : ''}`;
+            dot.onclick = () => goToSlide(index + 1);
+            dotsContainer.appendChild(dot);
+        });
+    }
+
+    // 更新个人信息
+    updatePersonalInfo() {
+        if (!this.data.personalInfo) return;
+
+        const { personalInfo } = this.data;
+        
+        // 更新头像
+        const avatarImage = document.querySelector('.avatar-image');
+        if (avatarImage && this.data.avatar) {
+            avatarImage.src = this.data.avatar;
+        }
+
+        // 更新个人介绍文本
+        const aboutText = document.querySelector('.about-text p');
+        if (aboutText) {
+            aboutText.textContent = personalInfo.intro;
+        }
+
+        // 更新技能标签
+        this.updateSkills();
+    }
+
+    // 更新技能标签
+    updateSkills() {
+        if (!this.data.personalInfo || !this.data.personalInfo.skills) return;
+
+        const skillsContainer = document.querySelector('.skill-tags');
+        if (!skillsContainer) return;
+
+        skillsContainer.innerHTML = '';
+        this.data.personalInfo.skills.forEach(skill => {
+            const skillTag = document.createElement('span');
+            skillTag.className = 'skill-tag';
+            skillTag.textContent = skill;
+            skillsContainer.appendChild(skillTag);
+        });
+    }
+
+    // 更新社交媒体链接
+    updateSocialLinks() {
+        if (!this.data.contactInfo || !this.data.contactInfo.social) return;
+
+        const { social } = this.data.contactInfo;
+        
+        // 更新Instagram链接
+        const instagramLink = document.querySelector('a[href*="instagram.com"]');
+        if (instagramLink && social.instagram) {
+            instagramLink.href = social.instagram;
+        }
+
+        // 更新X链接
+        const twitterLink = document.querySelector('a[href*="x.com"]');
+        if (twitterLink && social.twitter) {
+            twitterLink.href = social.twitter;
+        }
+
+        // 更新Telegram链接
+        const telegramLink = document.querySelector('a[href*="t.me"]');
+        if (telegramLink && social.telegram) {
+            telegramLink.href = social.telegram;
+        }
+    }
+
+    // 重新初始化轮播
+    initCarousel() {
+        // 重新获取元素引用
+        window.currentSlide = 0;
+        window.slides = document.querySelectorAll('.carousel-slide');
+        window.dots = document.querySelectorAll('.dot');
+        
+        if (window.slides.length > 0) {
+            showSlide(0);
+        }
+    }
+
+    // 监听数据变化
+    startDataSync() {
+        // 监听storage事件（跨标签页同步）
+        window.addEventListener('storage', (e) => {
+            if (e.key === 'personalWebsiteData') {
+                this.data = JSON.parse(e.newValue || '{}');
+                this.init();
+            }
+        });
+
+        // 定期检查数据变化（同标签页同步）
+        setInterval(() => {
+            const newData = this.loadData();
+            if (newData && JSON.stringify(newData) !== JSON.stringify(this.data)) {
+                this.data = newData;
+                this.init();
+            }
+        }, 1000); // 每秒检查一次
+    }
+}
+
 // 轮播功能
 let currentSlide = 0;
-const slides = document.querySelectorAll('.carousel-slide');
-const dots = document.querySelectorAll('.dot');
+let slides = document.querySelectorAll('.carousel-slide');
+let dots = document.querySelectorAll('.dot');
 
 // 初始化轮播
 function initCarousel() {
@@ -311,6 +478,9 @@ const optimizedScrollEffects = debounce(initScrollEffects, 10);
 document.addEventListener('DOMContentLoaded', () => {
     // 添加CSS动画
     addCSSAnimations();
+    
+    // 初始化数据管理器（优先于其他功能）
+    window.frontendDataManager = new FrontendDataManager();
     
     // 初始化各个功能模块
     initCarousel();
