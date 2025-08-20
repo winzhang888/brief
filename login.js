@@ -79,9 +79,8 @@ class LoginManager {
 
     // 登录成功
     loginSuccess() {
-        // 保存登录状态
-        localStorage.setItem('adminLoggedIn', 'true');
-        localStorage.setItem('loginTime', Date.now().toString());
+        // 保存登录状态到sessionStorage（关闭窗口后失效）
+        sessionStorage.setItem('adminLoggedIn', 'true');
         
         this.showMessage('登录成功！正在跳转...', 'success');
         
@@ -105,29 +104,17 @@ class LoginManager {
 
     // 检查登录状态
     checkLoginStatus() {
-        const isLoggedIn = localStorage.getItem('adminLoggedIn');
-        const loginTime = localStorage.getItem('loginTime');
+        const isLoggedIn = sessionStorage.getItem('adminLoggedIn');
         
-        if (isLoggedIn && loginTime) {
-            const currentTime = Date.now();
-            const loginTimeStamp = parseInt(loginTime);
-            const sessionDuration = 24 * 60 * 60 * 1000; // 24小时
-            
-            // 检查会话是否过期
-            if (currentTime - loginTimeStamp < sessionDuration) {
-                // 会话有效，直接跳转到管理界面
-                window.location.href = 'admin.html';
-            } else {
-                // 会话过期，清除登录状态
-                this.clearLoginStatus();
-            }
+        if (isLoggedIn) {
+            // 如果已登录，直接跳转到管理界面
+            window.location.href = 'admin.html';
         }
     }
 
     // 清除登录状态
     clearLoginStatus() {
-        localStorage.removeItem('adminLoggedIn');
-        localStorage.removeItem('loginTime');
+        sessionStorage.removeItem('adminLoggedIn');
     }
 
     // 显示消息

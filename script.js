@@ -20,6 +20,9 @@ class FrontendDataManager {
             this.updateCarousel();
             this.updatePersonalInfo();
             this.updateSocialLinks();
+        } else {
+            // 如果没有数据，也要绑定轮播事件
+            this.bindCarouselEvents();
         }
         
         // 启动数据同步
@@ -53,6 +56,9 @@ class FrontendDataManager {
         
         // 重新初始化轮播功能
         this.initCarousel();
+        
+        // 重新绑定轮播按钮事件
+        this.bindCarouselEvents();
     }
 
     // 更新轮播点
@@ -142,6 +148,27 @@ class FrontendDataManager {
         if (window.slides.length > 0) {
             showSlide(0);
         }
+    }
+
+    // 绑定轮播按钮事件
+    bindCarouselEvents() {
+        // 绑定左右切换按钮
+        const prevBtn = document.querySelector('.carousel-btn.prev');
+        const nextBtn = document.querySelector('.carousel-btn.next');
+        
+        if (prevBtn) {
+            prevBtn.onclick = () => changeSlide(-1);
+        }
+        
+        if (nextBtn) {
+            nextBtn.onclick = () => changeSlide(1);
+        }
+        
+        // 绑定轮播点点击事件
+        const dots = document.querySelectorAll('.dot');
+        dots.forEach((dot, index) => {
+            dot.onclick = () => goToSlide(index + 1);
+        });
     }
 
     // 监听数据变化

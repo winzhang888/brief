@@ -9,26 +9,12 @@ class AdminManager {
 
     // 检查登录状态
     checkLoginStatus() {
-        const isLoggedIn = localStorage.getItem('adminLoggedIn');
-        const loginTime = localStorage.getItem('loginTime');
+        const isLoggedIn = sessionStorage.getItem('adminLoggedIn');
         
-        if (!isLoggedIn || !loginTime) {
+        if (!isLoggedIn) {
             this.redirectToLogin();
             return;
         }
-        
-        const currentTime = Date.now();
-        const loginTimeStamp = parseInt(loginTime);
-        const sessionDuration = 24 * 60 * 60 * 1000; // 24小时
-        
-        if (currentTime - loginTimeStamp >= sessionDuration) {
-            this.clearLoginStatus();
-            this.redirectToLogin();
-            return;
-        }
-        
-        // 更新登录时间
-        localStorage.setItem('loginTime', currentTime.toString());
     }
 
     // 重定向到登录页面
@@ -38,8 +24,7 @@ class AdminManager {
 
     // 清除登录状态
     clearLoginStatus() {
-        localStorage.removeItem('adminLoggedIn');
-        localStorage.removeItem('loginTime');
+        sessionStorage.removeItem('adminLoggedIn');
     }
 
     // 初始化管理界面
@@ -208,28 +193,12 @@ class AdminManager {
 
     // 绑定事件
     bindEvents() {
-        // 自动保存功能
-        const inputs = document.querySelectorAll('input, textarea');
-        inputs.forEach(input => {
-            input.addEventListener('input', () => {
-                this.autoSave();
-            });
-        });
-
         // 技能输入框回车事件
         document.getElementById('newSkill').addEventListener('keypress', (e) => {
             if (e.key === 'Enter') {
                 this.addSkill();
             }
         });
-    }
-
-    // 自动保存
-    autoSave() {
-        clearTimeout(this.autoSaveTimer);
-        this.autoSaveTimer = setTimeout(() => {
-            this.saveFormData();
-        }, 1000);
     }
 
     // 保存表单数据
